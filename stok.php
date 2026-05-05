@@ -1,4 +1,3 @@
-<?php $page = basename($_SERVER['PHP_SELF']); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Kategori Produk - inventory rasya</title>
+  <title>stok - inventory rasya</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -41,7 +40,7 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
+  <<!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
@@ -290,11 +289,10 @@
 
   </ul>
 </aside><!-- End Sidebar-->
-
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Kategori Produk</h1>
+      <h1>Data Tables</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -307,6 +305,12 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Datatables</h5>
+              <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
+
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>

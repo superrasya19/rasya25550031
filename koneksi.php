@@ -1,3 +1,3 @@
 <?php
-$comn = mysqli_connect("localhost", "root","","website_strukturdata");
+$comn = mysqli_connect("localhost", "root","","inventory rasya");
 ?>
