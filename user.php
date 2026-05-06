@@ -291,9 +291,9 @@
       <h1>Manajemen user</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
+          <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+          <li class="breadcrumb-item"><li>
+          <li class="breadcrumb-item active">Manajemen User</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
