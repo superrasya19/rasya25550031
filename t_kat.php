@@ -1,4 +1,32 @@
-<?php $page = basename($_SERVER['PHP_SELF']); ?>
+<?php
+include "koneksi.php";
+
+$auto = mysqli_query($conn, "select max(kd_kat) as max_code from categories");
+$hasil = mysqli_fetch_array($auto);
+$code = $hasil['max_code'];
+if ($code == NULL) {
+    $urutan = 0;
+} else {
+    $urutan = (int) substr($code, 1, 3);
+}
+$urutan++;
+$huruf = "K";
+$kd_kat = $huruf . sprintf("%03s", $urutan);
+
+if (isset($_POST['simpan'])) {
+    $nm_kat = $_POST['nm_kat'];
+
+    $query = mysqli_query($conn, "INSERT INTO categories(kd_kat, category_name) VALUES ('$kd_kat', '$nm_kat')");
+    if ($query) {
+        echo "<script>alert('Data berhasil ditambahkan!')</script>";
+        header("refresh:0, kategori_produk.php");
+    } else {
+        echo "<script>alert('Data gagal ditambahkan!')</script>";
+        header("refresh:0, kategori_produk.php");
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,6 +145,66 @@
 
         </li><!-- End Notification Nav -->
 
+        <li class="nav-item dropdown">
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -177,7 +265,7 @@
 
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
+  <<!-- ======= Sidebar ======= -->
  <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -231,56 +319,51 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-          <li class="breadcrumb-item"><li>
-          <li class="breadcrumb-item active">Kategori Produk</li>
+          <li class="breadcrumb-item">Kategori Produk</li>
+          <li class="breadcrumb-item active">Tambah</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
 
-           <div class="card">
-             <div class="card-body mt-3">
-              <a href="t_kat.php" class="btn btn-primary">Tambah Data</a>
-            <div>
-          <div>
-        <div>
-      <div>
-                 <h5 class="card-title">Datatables</h5>
-                   <p>Add lightweight datatables to your project with using the <a  
+            </div>
+          </div>
 
-              <-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Kategori</th>
-                    <th scope="col">Kategori Produk</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  include "koneksi.php";
-                  $no = 1;
-                  $sql = mysqli_query($conn, "SELECT * FROM categories");
-                  while ($data = mysqli_fetch_array($sql)) {
-                  ?>
-                    <tr>
-                      <td><?php echo $no++; ?></td>
-                      <td><?php echo $data['kd_kat']; ?></td>
-                      <td><?php echo $data['category_name']; ?></td>
-                      <td>
-                        <a href="e_kat.php?id=<?php echo $data['id']; ?>" class="btn btn-warning">Edit</a>
-                        <a href="h_kat.php?id=<?php echo $data['id']; ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data?')">Hapus</a>
-                      </td>
-                    </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Tambah Kategori Produk</h5>
+
+              <!-- Vertical Form -->
+              <form class="row g-3" method="post">
+                <div class="col-12">
+                  <label for="kd_kat" class="form-label">kode Kategori</label>
+                  <input type="text" class="form-control" id="kd_kat" nama="kd_kat" value="<?php echo $kd_kat; ?>" readonly>
+                </div>
+                <div class="col-12">
+                  <label for="nm_kat" class="form-label">Nama Kategori</label>
+                  <input type="text" class="form-control" id="nm_kat" name="nm_kat" required>
+                </div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-warning"><a href="kategori_produk.php" style="color: black; text-decoration: none;">Kembali</a></button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="submit" class="btn btn-success" name="simpan">Simpan</button>
+                </div>
+              </form><!-- Vertical Form -->
+
+            </div>
+          </div>
+
+            </div>
+          </div>
 
             </div>
           </div>
@@ -308,7 +391,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>c
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.umd.js"></script>
   <script src="assets/vendor/echarts/echarts.min.js"></script>
