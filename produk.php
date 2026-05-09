@@ -1,14 +1,3 @@
-<?php
-include 'koneksi.php';
-//total stok
-$total_item = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product"));
-//total transaksi barang masuk
-$total_barang_masuk = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM stock_logs WHERE change_type = 'ADD'"));
-//total transaksi barang keluar
-$total_barang_keluar = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM stock_logs WHERE change_type = 'REDUCE'"));
-//total transaksi barang kritis
-$total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product WHERE stock <= min_stock"));
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +5,7 @@ $total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Laporan - inventory rasya</title>
+  <title>Produk - inventory rasya</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -57,6 +46,7 @@ $total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown">
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -103,7 +93,7 @@ $total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="login.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -136,14 +126,14 @@ $total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="produk.php">
+        <a class="nav-link " href="produk.php">
           <i class="bi bi-box-seam"></i>
           <span>Data Produk</span>
         </a>
       </li><!-- End Data Produk Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="laporan.php">
+        <a class="nav-link collapsed" href="laporan.php">
           <i class="bi bi-bar-chart-line"></i>
           <span>Laporan</span>
         </a>
@@ -162,67 +152,80 @@ $total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Laporan</h1>
+      <h1>Produk</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-          <li class="breadcrumb-item active">Laporan</li>
+          <li class="breadcrumb-item active">Produk</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    <!-- Laporan Stok Barang -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body mt-3">
+              <a href="t_produk.php" class="btn btn-primary">Tambah Data</a>
+              <a href="stok.php" class="btn btn-success">Stok</a>
+            </div>
+          </div>
+        </div>
+      </div>
     <section class="section">
       <div class="row">
-        <div class="col-lg-6">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Laporan Stok Barang</h5>
-              <p class="text-muted">Menampilkan seluruh data stok barang saat ini.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-primary">Total Item: <?= $total_item; ?></span>
-                <a href="laporan_stok.php" class="btn btn-sm btn-primary">Lihat Laporan</a>
-              </div>
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body mt-3">
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Kode Produk</th>
+                    <th scope="col">Nama Produk</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">stok</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Gambar</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <?php
+                include "koneksi.php";
+                $no = 1;
+                $sql = mysqli_query($conn, "
+                    SELECT p.*, c.category_name
+                    FROM product p
+                    LEFT JOIN categories c
+                    ON p.category_id = c.id
+                ");
+
+                while ($data = mysqli_fetch_array($sql)) {
+                ?>
+                <tr>
+                  <td><?php echo $no++; ?></td>
+                  <td><?php echo $data['product_code']; ?></td>
+                  <td><?php echo $data['product_name']; ?></td>
+                  <td><?php echo $data['category_name']; ?></td>
+                  <td><?php echo $data['stock']; ?></td>
+                  <td>Rp <?php echo number_format($data['price'],0,',','.'); ?></td>
+                  <td>
+                    <img src="produk_img/<?php echo $data['gambar']; ?>" width="50" class="rounded">
+                  </td>
+                  <td>
+                    <a href="e_produk.php?id=<?php echo $data['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="h_produk.php?id=<?php echo $data['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin?')">Hapus</a>
+                  </td>
+                </tr>
+                <?php } ?>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
             </div>
           </div>
-        </div>
-        <!-- Laporan Barang Masuk -->
-        <div class="col-lg-6">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Laporan Barang Masuk</h5>
-              <p class="text-muted">Riwayat barang yang masuk ke gudang.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-success">Total Transaksi: <?= $total_barang_masuk; ?></span>
-                <a href="laporan_barang_masuk.php" class="btn btn-sm btn-success">Lihat Laporan</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Laporan Barang Keluar -->
-        <div class="col-lg-6">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Laporan Barang Keluar</h5>
-              <p class="text-muted">Riwayat barang yang keluar dari gudang.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">Total Transaksi: <?= $total_barang_keluar; ?></span>
-                <a href="laporan_barang_keluar.php" class="btn btn-sm btn-danger">Lihat Laporan</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Laporan Stok Minimum --> 
-        <div class="col-lg-6">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title text-warning">Stok Minimum</h5>
-              <p class="text-muted">Barang dengan stok hampir habis.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-warning">Item Kritis: <?= $total_stok_kritis; ?></span>
-                <a href="laporan_stok_minimum.php" class="btn btn-sm btn-warning" target="_blank">Lihat Laporan</a>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
