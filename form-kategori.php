@@ -206,7 +206,7 @@
             &copy; Copyright <strong><span>inventory rasya</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="">Rasyaandi</a>
+            Designed by <a href="">RasyaAndi</a>
         </div>
     </footer><!-- End Footer -->
 
