@@ -220,11 +220,10 @@ $total_stok_kritis = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM product
               <div class="d-flex justify-content-between align-items-center">
                 <span class="fw-bold text-warning">Item Kritis: <?= $total_stok_kritis; ?></span>
                 <a href="laporan_stok_minimum.php" class="btn btn-sm btn-warning" target="_blank">Lihat Laporan</a>
-              </div>
-            </div>
+             </div>
+           </div>
           </div>
         </div>
-      </div>
     </section>
 
   </main><!-- End #main -->
