@@ -72,13 +72,13 @@ if (isset($_POST['update'])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Manajemen Users - inventory rasya</title>
+    <title>Manajemen Users - Inventory Rasya</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="assets/img/logo1.png" rel="icon">
+    <link href="assets/img/logo1.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -105,8 +105,8 @@ if (isset($_POST['update'])) {
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.php" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">inventory rasya</span>
+                <img src="assets/img/logo1.png" alt="">
+                <span class="d-none d-lg-block">Inventory Rasya</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -115,7 +115,7 @@ if (isset($_POST['update'])) {
             <ul class="d-flex align-items-center">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="assets/img/logo2.jpeg" alt="Profile" class="rounded-circle">
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -325,10 +325,10 @@ if (isset($_POST['update'])) {
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>inventory rasya</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>Inventory Rasya</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="">RasyaAndi</a>
+            Designed by <a href="https://www.instagram.com/rastysm?igsh=d3o5dWpydDd2OGw3">RasyaAndi</a>
         </div>
     </footer><!-- End Footer -->
 

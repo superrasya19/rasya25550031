@@ -46,13 +46,13 @@ if (isset($_POST['login'])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>login - inventory rasya</title>
+  <title>login - Inventory Rasya</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/ilventory3.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/logo1.png" rel="icon">
+  <link href="assets/img/logo1.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -84,8 +84,8 @@ if (isset($_POST['login'])) {
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.php" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/ilventory3.png" alt="">
-                  <span class="d-none d-lg-block">inventory rasya</span>
+                  <img src="assets/img/logo1.png" alt="">
+                  <span class="d-none d-lg-block">Inventory Rasya</span>
                 </a>
               </div><!-- End Logo -->
 
