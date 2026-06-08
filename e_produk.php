@@ -1,8 +1,10 @@
 <?php
+session_start();
 include "koneksi.php";
 $id = $_GET['id'];
 $query = mysqli_query($conn, "SELECT * FROM product WHERE id = '$id'");
 $hasil = mysqli_fetch_array($query);
+$stok_lama = $hasil['stock']; // simpan stok sebelum diubah
 if (isset($_POST['update'])) {
     $nm_produk = $_POST['nm_produk'];
     $stok = $_POST['stok'];
@@ -47,6 +49,14 @@ if (isset($_POST['update'])) {
         ");
     }
     if ($update) {
+        // Insert stock_logs jika stok berubah
+        if ($stok != $stok_lama) {
+            $created_by = isset($_SESSION['id']) ? $_SESSION['id'] : 1;
+            $selisih = abs($stok - $stok_lama);
+            $change_type = ($stok > $stok_lama) ? 'ADD' : 'REDUCE';
+            mysqli_query($conn, "INSERT INTO stock_logs (product_id, change_type, qty, stock_before, stock_after, created_by, note)
+                VALUES ('$id', '$change_type', '$selisih', '$stok_lama', '$stok', '$created_by', 'Edit produk')");
+        }
         echo "<script>alert('Data berhasil diubah!')</script>";
         header("refresh:0, produk.php");
     } else {

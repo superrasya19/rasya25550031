@@ -12,7 +12,6 @@ function query(string $query)
     $result = mysqli_query($conn, $query);
 
     $rows = [];
-
     while ($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
     }
@@ -30,10 +29,11 @@ $data = query("
         sl.qty,
         sl.stock_before,
         sl.stock_after,
+        sl.note,
         sl.created_at,
         u.name AS created_by
     FROM stock_logs sl
-    JOIN product p ON sl.product_id = p.id
+    JOIN products p ON sl.product_id = p.id
     JOIN categories c ON p.category_id = c.id
     JOIN users u ON sl.created_by = u.id
     WHERE sl.change_type = 'ADD'

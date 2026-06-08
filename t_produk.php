@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "koneksi.php";
 
 $auto = mysqli_query($conn, "select max(product_code) as max_code from product");
@@ -35,6 +36,12 @@ if (isset($_POST['simpan'])) {
 
         $query = mysqli_query($conn, "INSERT INTO product(category_id, product_code, product_name, stock, min_stock, price, gambar) VALUES ('$id_kategori', '$kd_produk', '$nm_produk', '$stok', '$min_stok', '$harga', '$imgnewfile')");
         if ($query) {
+            // Insert ke stock_logs
+            $product_id = mysqli_insert_id($conn);
+            $created_by = isset($_SESSION['id']) ? $_SESSION['id'] : 1;
+            mysqli_query($conn, "INSERT INTO stock_logs (product_id, change_type, qty, stock_before, stock_after, created_by, note)
+                VALUES ('$product_id', 'ADD', '$stok', '0', '$stok', '$created_by', 'Produk baru ditambahkan')");
+
             echo "<script>alert('Produk berhasil ditambahkan!')</script>";
             header("refresh:0, produk.php");
         } else {
